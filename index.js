@@ -80,8 +80,27 @@ function Airplane(name) {
   */
   
  function Car(model, milesPerGallon) {
-    
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
   }
+
+  Car.prototype.fill = function(gallons) {
+    this.tank += gallons;
+  };
+
+  Car.prototype.drive = function(distance) {
+    let drivenMiles = this.tank * this.milesPerGallon;
+    if (distance <= drivenMiles) {
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - distance / this.milesPerGallon;
+    } else {
+      this.odometer = this.odometer + drivenMiles;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }
+  };
   
   
   /*
